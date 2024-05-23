@@ -79,14 +79,24 @@ const updateContextMenus = async () => {
 chrome.runtime.onInstalled.addListener(updateContextMenus);
 chrome.runtime.onStartup.addListener(updateContextMenus);
 chrome.contextMenus.onClicked.addListener(async (info) => {
-  const selectStrings = info.selectionText;
+    const selectStrings = info.selectionText;
+    const message = null;
 
-  try {
-    const env = await loadEnv();
-    const dirPath = env.TEXT_DIRECTORY_PATH;
-    const result = await isStringInDirectoryFiles(dirPath, selectStrings);
-    console.log(`文字列 "${selectStrings}" はファイルに${result ? '含まれています' : '含まれていません'}`);
-  } catch (error) {
-    console.error(`エラーが発生しました: ${error.message}`);
-  }
+    var opt = {
+        type: "basic",
+        title: "Result",
+        message: message,
+        iconUrl: "content/icon.jpg"
+    }
+
+    try {
+        const env = await loadEnv();
+        const dirPath = env.TEXT_DIRECTORY_PATH;
+        message = await isStringInDirectoryFiles(dirPath, selectStrings);
+        console.log(`文字列 "${selectStrings}" はファイルに${result ? '含まれています' : '含まれていません'}`);
+
+        await chrome.notifications.create(id, opt);
+    } catch (error) {
+        console.error(`エラーが発生しました: ${error.message}`);
+    }
 });

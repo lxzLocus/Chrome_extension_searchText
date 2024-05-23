@@ -4,9 +4,8 @@
   "description": "web text search from txt file",
   "version": "1.0",
   "background": {
-    "service_worker": "script.js"
+    "service_worker": "scripts/script.js"
   },
-
   "permissions": [
     "activeTab",
     "contextMenus",
