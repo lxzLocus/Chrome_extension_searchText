@@ -1,12 +1,14 @@
 {
   "manifest_version": 3,
   "name": "Search_txt",
-  "description": "web text search from txt file",
   "version": "1.0",
   "background": {
-    "service_worker": "scripts/script.js"
+    "js": ["./scripts/temp.js"],
+    "match":["https://*.*, http://*.*"]
   },
   "permissions": [
+    "notifications",
+    "clipboardRead",
     "activeTab",
     "contextMenus",
     "scripting",
